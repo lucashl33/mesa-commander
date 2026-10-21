@@ -211,6 +211,14 @@ test('criação de token entra no campo com sickness', () => {
   assert.equal(s.templates[s.cards[uid].tpl].token, true);
   apply(s, { t: 'counter', uid, name: '+1/+1', delta: 2 });
   assert.equal(s.cards[uid].counters['+1/+1'], 2);
+  apply(s, { t: 'counter', uid, name: '+1/+1', delta: -1 });
+  assert.equal(s.cards[uid].counters['+1/+1'], 1, 'remove 1 marcador');
+  apply(s, { t: 'counter', uid, name: '+1/+1', delta: -1 });
+  assert.ok(!('+1/+1' in s.cards[uid].counters), 'remover até 0 apaga o marcador');
+  apply(s, { t: 'counter', uid, name: '+1/+1', delta: 3 });
+  apply(s, { t: 'counter', uid, name: 'carga', delta: 2 });
+  apply(s, { t: 'clearCounters', uid });
+  assert.deepEqual(s.cards[uid].counters, {}, 'limpar marcadores zera todos');
   apply(s, { t: 'damage', uid, delta: 3 });
   assert.equal(s.cards[uid].damage, 3);
   apply(s, { t: 'clearDamage' });

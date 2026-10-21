@@ -332,6 +332,13 @@ input, select {
 .actgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 8px; }
 .actgrid button { padding: 11px 6px; font-size: .84rem; }
 .actgroup-title { font-size: .7rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin: 14px 0 7px; }
+.counterchip {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--bg3); border: 1px solid var(--green); border-radius: 8px;
+  padding: 4px 6px 4px 10px; font-size: .82rem;
+}
+.counterchip b { color: var(--green); font-variant-numeric: tabular-nums; }
+.counterchip button { padding: 3px 9px; font-size: .82rem; border-radius: 6px; line-height: 1; }
 
 .zoomimg { width: 100%; max-height: 68vh; object-fit: contain; border-radius: 10px; }
 

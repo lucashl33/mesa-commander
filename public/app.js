@@ -900,14 +900,25 @@ function cardSheet(v, uid) {
   if (isLand && zone === 'hand') btns.push(`<button data-act="move" data-uid="${uid}" data-to="battlefield" class="primary">Baixar terreno</button>`);
   if (isCommander && zone === 'command') btns.push(`<button data-act="castcommander" class="primary">Conjurar comandante${v.cmdTax ? ` (+${v.cmdTax})` : ''}</button>`);
 
-  const counters = `<div class="actgroup-title">Marcadores</div><div class="actgrid">
+  const currentCounters = Object.entries(c.counters || {}).filter(([, n]) => n > 0);
+  const counterList = currentCounters.length
+    ? `<div class="actgroup-title">Marcadores na carta</div><div class="actgrid">
+        ${currentCounters.map(([name, n]) => `<span class="counterchip">
+          <b>${esc(name)}×${n}</b>
+          <button data-act="counter" data-uid="${uid}" data-name="${esc(name)}" data-delta="-1" title="Remover 1">−</button>
+          <button data-act="counter" data-uid="${uid}" data-name="${esc(name)}" data-delta="${-n}" title="Remover tudo" class="danger">✕</button>
+        </span>`).join('')}
+      </div>` : '';
+
+  const counters = `<div class="actgroup-title">Adicionar marcadores</div><div class="actgrid">
     <button data-act="counter" data-uid="${uid}" data-name="+1/+1" data-delta="1">+1/+1</button>
-    <button data-act="counter" data-uid="${uid}" data-name="+1/+1" data-delta="-1">−1/+1</button>
+    <button data-act="counter" data-uid="${uid}" data-name="+1/+1" data-delta="-1">+1/+1 −1</button>
     <button data-act="counter" data-uid="${uid}" data-name="-1/-1" data-delta="1">−1/−1</button>
     <button data-act="countercustom" data-uid="${uid}">Outro…</button>
     <button data-act="damage" data-uid="${uid}" data-delta="1">Dano +1</button>
     <button data-act="damage" data-uid="${uid}" data-delta="-1">Dano −1</button>
     <button data-act="cleardamage" data-uid="${uid}">Limpar dano</button>
+    ${currentCounters.length ? `<button data-act="clearcounters" data-uid="${uid}" class="danger">Limpar marcadores</button>` : ''}
   </div>`;
 
   const moves = `<div class="actgroup-title">Mover para</div><div class="actgrid">
@@ -935,6 +946,7 @@ function cardSheet(v, uid) {
         </div>
       </div>
       <div class="actgrid">${btns.join('')}</div>
+      ${counterList}
       ${counters}
       ${moves}
     </div>
@@ -1085,6 +1097,7 @@ const handlers = {
   counter: (d) => act({ t: 'counter', uid: d.uid, name: d.name, delta: Number(d.delta) }),
   damage: (d) => act({ t: 'damage', uid: d.uid, delta: Number(d.delta) }),
   cleardamage: (d) => act({ t: 'clearDamage', uid: d.uid }),
+  clearcounters: (d) => act({ t: 'clearCounters', uid: d.uid }),
   countercustom: (d) => {
     const name = prompt('Nome do marcador (ex: carga, lealdade):');
     if (!name) return;
