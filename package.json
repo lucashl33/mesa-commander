@@ -1,0 +1,28 @@
+{
+  "name": "mesa-commander",
+  "version": "1.0.0",
+  "description": "Mesa virtual de Magic Commander: computador como mesa de jogo e celular como mão, sincronizados em tempo real via WebSocket. Usa as imagens das suas próprias cartas, sem build.",
+  "license": "MIT",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "magic",
+    "mtg",
+    "commander",
+    "edh",
+    "board-game",
+    "websocket"
+  ],
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test",
+    "fetch-cards": "node scripts/fetch-card-data.js"
+  },
+  "dependencies": {
+    "express": "^4.22.3",
+    "qrcode": "^1.5.4",
+    "ws": "^8.22.0"
+  }
+}

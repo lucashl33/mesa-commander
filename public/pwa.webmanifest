@@ -1,0 +1,13 @@
+{
+  "name": "Mesa Commander",
+  "short_name": "Mesa MTG",
+  "description": "Mesa virtual de Magic Commander com celular como mão e note como mesa",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0e1114",
+  "theme_color": "#0e1114",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

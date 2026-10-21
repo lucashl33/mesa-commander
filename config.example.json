@@ -1,0 +1,9 @@
+{
+  "port": 3000,
+  "vaultRoot": "/caminho/para/seu/cofre-ou-pasta-de-decks",
+  "cardBack": "",
+  "cardRoots": [
+    "A00 Particular"
+  ],
+  "scryfallDelayMs": 150
+}
